@@ -1,10 +1,40 @@
-from .node import *
+from .MKTextNode import *
 from .install import *
+import filecmp
+import shutil
+import __main__
 
-# A dictionary that contains all nodes you want to export with their names
-# NOTE: names should be globally unique
+python = sys.executable
+
+
+extentions_folder = os.path.join(os.path.dirname(os.path.realpath(__main__.__file__)),
+                                 "web" + os.sep + "extensions" + os.sep + "Comfy-MK")
+javascript_folder = os.path.join(os.path.dirname(os.path.realpath(__file__)), "js")
+
+if not os.path.exists(extentions_folder):
+    os.mkdir(extentions_folder)
+
+result = filecmp.dircmp(javascript_folder, extentions_folder)
+
+if result.left_only or result.diff_files:
+    print('Update to javascripts files detected')
+    file_list = list(result.left_only)
+    file_list.extend(x for x in result.diff_files if x not in file_list)
+
+    for file in file_list:
+        print(f'Copying {file} to extensions folder')
+        src_file = os.path.join(javascript_folder, file)
+        dst_file = os.path.join(extentions_folder, file)
+        if os.path.exists(dst_file):
+            os.remove(dst_file)
+        shutil.copy(src_file, dst_file)
+
+
 NODE_CLASS_MAPPINGS = {
-    "Show Text": ShowText
+    "ShowText": ShowText,
+    "CombinationText": CombinationText,
+    "PlaceholderText": PlaceholderText,
+    "ReplaceText": ReplaceText
 }
 
 __all__ = ['NODE_CLASS_MAPPINGS']

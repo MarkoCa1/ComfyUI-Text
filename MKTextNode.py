@@ -5,24 +5,28 @@ sys.path.append(
     os.path.dirname(os.path.abspath(__file__))
 )
 
+# DisplayText node is forked from AlekPet,ZHO-ZHO-ZHO，thanks to AlekPet,ZHO-ZHO-ZHO！
 class ShowText:
     def __init__(self):
         pass
 
     @classmethod
     def INPUT_TYPES(s):
-
         return {
             "required": {
-                "text": ("STRING"),
+                "text": ("STRING", {"forceInput": True}),
             },
         }
+
+    RETURN_TYPES = ("STRING",)
+    RETURN_NAMES = ("text",)
+    OUTPUT_NODE = True
 
     FUNCTION = "show_text"
     CATEGORY = "MK/text"
 
     def show_text(self, text):
-        return {"ui": {"text": [text,]}}
+        return {"ui": {"string": [text,]}, "result": (text,)}
 
 class CombinationText:
     def __init__(self):
@@ -89,8 +93,8 @@ class ReplaceText:
         return {
             "required": {
                 "text": ("STRING", {"multiline": True}),
-                "old_string": ("STRING",),
-                "new_string": ("STRING",),
+                "old_string": ("STRING", {"default": ""}),
+                "new_string": ("STRING", {"default": ""}),
             },
         }
 
