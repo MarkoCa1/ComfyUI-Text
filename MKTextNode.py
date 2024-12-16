@@ -106,7 +106,9 @@ class ReplaceText:
     CATEGORY = "MK/text"
 
     def replace_text(self, text, old_string, new_string):
-
-        text = text.replace(old_string, new_string)
+        
+        old_strings = old_string.split(',')
+        for old in old_strings:
+            text = text.replace(old, new_string)
 
         return (text,)
