@@ -1,0 +1,15 @@
+[project]
+name = "comfyui-text"
+description = "Text."
+version = "1.0.0"
+license = "LICENSE"
+dependencies = []
+
+[project.urls]
+Repository = "https://github.com/MarkoCa1/ComfyUI-Text"
+#  Used by Comfy Registry https://comfyregistry.org
+
+[tool.comfy]
+PublisherId = ""
+DisplayName = "ComfyUI-Text"
+Icon = ""
